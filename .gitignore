@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Production
+dist/
+build/
+
+# Development
+.vite/
+.DS_Store
+*.log
+
+# Environment
+.env
+.env.local
