@@ -75,6 +75,4 @@ npm run dev
 
 This project is open source and available under the MIT License.
 
-## 👨‍💻 Developer
-
-Built with ❤️ by the MingleNet team
+## 👨‍💻 Developer By Danuja Adikari
