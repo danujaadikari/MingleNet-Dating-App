@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Matches from './pages/Matches'
 import Messages from './pages/Messages'
+import Settings from './pages/Settings'
 import Navbar from './components/Navbar'
 import './App.css'
 
@@ -13,6 +14,23 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
   const [allUsers, setAllUsers] = useState([]) // Store all created users
+  const [darkMode, setDarkMode] = useState(false)
+
+  // Load dark mode preference
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(savedDarkMode)
+  }, [])
+
+  // Save dark mode preference
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode)
+    if (darkMode) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+  }, [darkMode])
 
   const handleLogin = (user) => {
     setIsLoggedIn(true)
@@ -34,7 +52,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
         {isLoggedIn && <Navbar onLogout={handleLogout} currentUser={currentUser} />}
         <Routes>
           <Route 
@@ -60,6 +78,10 @@ function App() {
           <Route 
             path="/messages" 
             element={isLoggedIn ? <Messages currentUser={currentUser} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/settings" 
+            element={isLoggedIn ? <Settings currentUser={currentUser} darkMode={darkMode} setDarkMode={setDarkMode} /> : <Navigate to="/login" />} 
           />
           <Route path="/" element={<Navigate to={isLoggedIn ? "/home" : "/login"} />} />
         </Routes>
