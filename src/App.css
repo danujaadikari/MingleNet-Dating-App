@@ -1,4 +1,92 @@
 .App {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: background 0.3s ease;
+}
+
+/* Dark Mode Styles */
+.App.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+body.dark-mode {
+  background: #1a1a2e;
+}
+
+/* Dark mode for white backgrounds */
+.dark-mode .auth-card,
+.dark-mode .profile-content,
+.dark-mode .settings-content,
+.dark-mode .match-card,
+.dark-mode .profile-card,
+.dark-mode .navbar,
+.dark-mode .messages-container {
+  background: #2d2d44 !important;
+  color: #e0e0e0 !important;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode label,
+.dark-mode .conversation-header h3,
+.dark-mode .match-info h3 {
+  color: #e0e0e0 !important;
+}
+
+.dark-mode p,
+.dark-mode .auth-header p,
+.dark-mode .detail-section p {
+  color: #b0b0b0 !important;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background: #1a1a2e !important;
+  color: #e0e0e0 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode input:focus,
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+  border-color: #667eea !important;
+}
+
+.dark-mode .conversation-item {
+  border-bottom-color: #444 !important;
+}
+
+.dark-mode .conversation-item:hover {
+  background: #3a3a54 !important;
+}
+
+.dark-mode .chat-header,
+.dark-mode .conversations-sidebar h2 {
+  border-bottom-color: #444 !important;
+  background: #2d2d44 !important;
+}
+
+.dark-mode .message.them .message-bubble {
+  background: #3a3a54 !important;
+  color: #e0e0e0 !important;
+}
+
+.dark-mode .messages-list {
+  background: #1a1a2e !important;
+}
+
+.dark-mode .message-input-container {
+  background: #2d2d44 !important;
+  border-top-color: #444 !important;
+}
+
+.dark-mode .account-info,
+.dark-mode .theme-toggle {
+  background: #3a3a54 !important;
+}
+
+.dark-mode .card-details {
+  background: #2d2d44 !important;
 }
