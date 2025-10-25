@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaHeart, FaTimes, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa'
 import './Home.css'
 
@@ -51,8 +51,28 @@ const sampleUsers = [
   }
 ]
 
-function Home({ currentUser }) {
+function Home({ currentUser, allUsers = [] }) {
   const [users, setUsers] = useState(sampleUsers)
+  
+  // Update users list when new users are created
+  useEffect(() => {
+    if (allUsers.length > 0) {
+      // Combine sample users with newly created users
+      // Filter out the current user from the browsing list
+      const newlyCreatedUsers = allUsers
+        .filter(user => user.id !== currentUser?.id)
+        .map(user => ({
+          ...user,
+          location: user.location || 'Unknown Location',
+          bio: user.bio || 'New to MingleNet! Say hi! 👋',
+          interests: user.interests?.length > 0 ? user.interests : ['New Here'],
+          photos: user.photos || ['https://i.pravatar.cc/400?img=' + Math.floor(Math.random() * 70)]
+        }))
+      
+      // Add newly created users to the beginning of the list
+      setUsers([...newlyCreatedUsers, ...sampleUsers])
+    }
+  }, [allUsers, currentUser])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [matches, setMatches] = useState([])
 
