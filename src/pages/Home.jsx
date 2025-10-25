@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { FaHeart, FaTimes, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa'
+import { FaHeart, FaTimes, FaMapMarkerAlt, FaInfoCircle, FaUndo } from 'react-icons/fa'
 import './Home.css'
 
 // Sample user data
@@ -75,8 +75,10 @@ function Home({ currentUser, allUsers = [] }) {
   }, [allUsers, currentUser])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [matches, setMatches] = useState([])
-
-  const handleLike = () => {
+  const [lastAction, setLastAction] = useState(null) // Track last action for undo
+  const [swipeDirection, setSwipeDirection] = useState('') // For animations
+  
+  // Update users list when new users are created
     const likedUser = users[currentIndex]
     setMatches([...matches, likedUser])
     
