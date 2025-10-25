@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { FaHome, FaHeart, FaComments, FaUser, FaSignOutAlt } from 'react-icons/fa'
+import { FaHome, FaHeart, FaComments, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa'
 import './Navbar.css'
 
 function Navbar({ onLogout, currentUser }) {
@@ -23,6 +23,9 @@ function Navbar({ onLogout, currentUser }) {
         </Link>
         <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
           <FaUser /> <span>Profile</span>
+        </Link>
+        <Link to="/settings" className={location.pathname === '/settings' ? 'active' : ''}>
+          <FaCog /> <span>Settings</span>
         </Link>
       </div>
       <button onClick={onLogout} className="logout-button">
