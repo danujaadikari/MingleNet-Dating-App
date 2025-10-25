@@ -11,6 +11,22 @@ function Profile({ currentUser, setCurrentUser }) {
     interests: currentUser?.interests?.join(', ') || ''
   })
 
+  // Calculate profile completion percentage
+  const calculateCompletion = () => {
+    let completed = 0
+    const total = 5
+    
+    if (currentUser?.name) completed++
+    if (currentUser?.age) completed++
+    if (currentUser?.bio && currentUser.bio.length > 10) completed++
+    if (currentUser?.interests && currentUser.interests.length > 0) completed++
+    if (currentUser?.photos && currentUser.photos.length > 0) completed++
+    
+    return Math.round((completed / total) * 100)
+  }
+
+  const completionPercentage = calculateCompletion()
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -46,6 +62,24 @@ function Profile({ currentUser, setCurrentUser }) {
               <FaCamera />
             </button>
           </div>
+          
+          {/* Profile Completion Indicator */}
+          <div className="completion-indicator">
+            <div className="completion-header">
+              <span>Profile Completion</span>
+              <span className="completion-percentage">{completionPercentage}%</span>
+            </div>
+            <div className="completion-bar">
+              <div 
+                className="completion-progress" 
+                style={{ width: `${completionPercentage}%` }}
+              ></div>
+            </div>
+            {completionPercentage < 100 && (
+              <p className="completion-tip">Complete your profile to get more matches!</p>
+            )}
+          </div>
+          
           <button 
             className="edit-profile-btn"
             onClick={() => setIsEditing(!isEditing)}
