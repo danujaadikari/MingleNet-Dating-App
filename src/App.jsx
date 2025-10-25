@@ -9,59 +9,10 @@ import Messages from './pages/Messages'
 import Navbar from './components/Navbar'
 import './App.css'
 
-// Initial sample users
-const initialUsers = [
-  {
-    id: 2,
-    name: 'Sarah',
-    age: 24,
-    location: 'New York, NY',
-    bio: 'Coffee enthusiast ☕ | Adventure seeker 🏔️ | Love dogs 🐕',
-    interests: ['Travel', 'Photography', 'Yoga'],
-    photos: ['https://i.pravatar.cc/400?img=5']
-  },
-  {
-    id: 3,
-    name: 'Emily',
-    age: 26,
-    location: 'Los Angeles, CA',
-    bio: 'Artist by day, foodie by night 🎨🍕 Always looking for new experiences!',
-    interests: ['Art', 'Food', 'Music'],
-    photos: ['https://i.pravatar.cc/400?img=9']
-  },
-  {
-    id: 4,
-    name: 'Michael',
-    age: 28,
-    location: 'Chicago, IL',
-    bio: 'Tech enthusiast | Gym lover 💪 | Looking for meaningful connections',
-    interests: ['Fitness', 'Technology', 'Movies'],
-    photos: ['https://i.pravatar.cc/400?img=12']
-  },
-  {
-    id: 5,
-    name: 'Jessica',
-    age: 23,
-    location: 'Miami, FL',
-    bio: 'Beach lover 🏖️ | Book worm 📚 | Let\'s grab coffee and talk about life',
-    interests: ['Reading', 'Beach', 'Travel'],
-    photos: ['https://i.pravatar.cc/400?img=20']
-  },
-  {
-    id: 6,
-    name: 'David',
-    age: 27,
-    location: 'Seattle, WA',
-    bio: 'Software developer | Coffee addict | Outdoor enthusiast 🌲',
-    interests: ['Hiking', 'Technology', 'Coffee'],
-    photos: ['https://i.pravatar.cc/400?img=15']
-  }
-]
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState(null)
-  const [allUsers, setAllUsers] = useState(initialUsers)
+  const [allUsers, setAllUsers] = useState([]) // Store all created users
 
   const handleLogin = (user) => {
     setIsLoggedIn(true)
@@ -69,9 +20,9 @@ function App() {
   }
 
   const handleSignup = (user) => {
-    // Add new user to the list of all users
+    // Add the new user to the list of all users
     setAllUsers(prevUsers => [...prevUsers, user])
-    // Log them in
+    // Log them in automatically
     setIsLoggedIn(true)
     setCurrentUser(user)
   }
@@ -92,11 +43,11 @@ function App() {
           />
           <Route 
             path="/signup" 
-            element={!isLoggedIn ? <Signup onLogin={handleLogin} /> : <Navigate to="/home" />} 
+            element={!isLoggedIn ? <Signup onLogin={handleSignup} /> : <Navigate to="/home" />} 
           />
           <Route 
             path="/home" 
-            element={isLoggedIn ? <Home currentUser={currentUser} /> : <Navigate to="/login" />} 
+            element={isLoggedIn ? <Home currentUser={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} 
           />
           <Route 
             path="/profile" 
